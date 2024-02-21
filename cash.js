@@ -3,6 +3,10 @@ const atm = (money, limit) => {
   const result = {};
   const entries = Object.keys(limit).sort((a, b) => Number(b) - Number(a));
 
+  if (money % entries[entries.length -1] !== 0) {
+    return 'Error: Incorrect value';
+  }
+
   entries.forEach((nominal) => {
     const nominalNumber = Number(nominal);
     const resultCount = Math.floor(value / nominalNumber);
@@ -16,8 +20,12 @@ const atm = (money, limit) => {
   });
 
   if (value) {
-    const isEmpty = Object.values(limit).every((item) => item === 0);
-    throw new Error(isEmpty ? 'Not enough money' : 'Not exchange')
+    entries.forEach((nominal) => {
+      if (result[nominal]) {
+        limit[nominal] += result[nominal];
+      }
+    })
+    return 'Error: Not enough money';
   }
 
   return result;
