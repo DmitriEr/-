@@ -2,7 +2,7 @@ const intersect = (nums1, nums2) => {
   let isNext = true;
   const nums2String = nums2.join('');
 
-  const result = nums1.reduce((prev, item, index, arr) => {
+  const result = nums1.reduce((prev, item) => {
     let isInclude = false;
 
     if (prev.length) {
